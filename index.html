@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LSCF84 | Catálogo de Portfolios (Versión de Prueba)</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Iconos de Font Awesome para flechas y el reloj de 'Próximamente' -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+</head>
+<body>
+
+    <header class="hero">
+        <div class="container">
+            <h1>LSCF84 // PORTAL DE PROYECTOS</h1>
+            <p>Acceso a todos mis repositorios y portfolios destacados. Explora los proyectos de Jrdev y más.</p>
+            <a href="#proyectos" class="btn">Explorar Proyectos</a>
+        </div>
+    </header>
+    
+    <!-- Sección: Stack Tecnológico Destacado -->
+    <section class="tech-stack">
+        <div class="container">
+            <h2>Tecnologías Clave</h2>
+            <div class="tech-grid">
+                <!-- Iconos de ejemplo - Puedes reemplazarlos con otros de Font Awesome -->
+                <i class="fab fa-react tech-icon" title="React / Frontend"></i>
+                <i class="fab fa-node-js tech-icon" title="Node.js / Backend"></i>
+                <i class="fas fa-server tech-icon" title="Servidores y APIs"></i>
+                <i class="fab fa-js-square tech-icon" title="JavaScript Moderno"></i>
+                <i class="fab fa-git-alt tech-icon" title="Control de Versiones"></i>
+            </div>
+        </div>
+    </section>
+
+    <section id="proyectos" class="projects-carousel container">
+        <h2>Portfolios Destacados</h2>
+        
+        <div class="carousel-wrapper">
+            <div class="carousel-track">
+                
+                <!-- Tarjeta 1: Proyecto Jrdev -->
+                <a href="/Jrdev" class="project-card">
+                    <img src="assets/img/jrdev-preview.jpg" alt="Vista previa del proyecto Jrdev">
+                    <div class="card-content">
+                        <h3>[Jrdev] Portfolio Moderno</h3>
+                        <p>Plataforma desarrollada con las últimas tendencias, enfocada en optimización y rendimiento.</p>
+                        <div class="card-footer">
+                            <span>Acceder al Portal</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+
+                <!-- Tarjeta 2: Portfolio Web Anterior -->
+                <a href="/portfolio-web" class="project-card">
+                    <img src="assets/img/portfolio-web-preview.jpg" alt="Vista previa del portfolio web anterior">
+                    <div class="card-content">
+                        <h3>[LSCF84] Portfolio Clásico</h3>
+                        <p>Mi primera presentación personal, utilizando una pila de desarrollo web tradicional (HTML/CSS).</p>
+                        <div class="card-footer">
+                            <span>Ver Archivo</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </div>
+                    </div>
+                </a>
+                
+                <!-- Tarjeta 3: Ejemplo Próximo Proyecto -->
+                <div class="project-card coming-soon">
+                    <div class="card-content">
+                        <h3>[Proyecto X] Chat App</h3>
+                        <p>Aplicación de mensajería en tiempo real utilizando Firebase, Redux y un diseño Neumórfico.</p>
+                        <div class="card-footer">
+                            <span>Desarrollo Activo</span>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarjeta 4: Ejemplo Próximo Proyecto -->
+                <div class="project-card coming-soon">
+                    <div class="card-content">
+                        <h3>[Proyecto Y] API RESTful</h3>
+                        <p>Sistema de gestión de usuarios y pedidos construido con Node.js, Express y MongoDB.</p>
+                        <div class="card-footer">
+                            <span>Desarrollo Activo</span>
+                            <i class="fas fa-clock"></i>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+        
+        <!-- Botones de Navegación del Carrusel -->
+        <button class="carousel-btn prev-btn" aria-label="Anterior">
+            <i class="fas fa-chevron-left"></i>
+        </button>
+        <button class="carousel-btn next-btn" aria-label="Siguiente">
+            <i class="fas fa-chevron-right"></i>
+        </button>
+
+    </section>
+
+    <footer>
+        <p>CONEXIÓN ESTABLE &bull; V. TEST &bull; PROTOCOLO LSCF84 &bull; Desarrollado con ❤️ y GitHub Pages.</p>
+    </footer>
+
+    <!-- Enlace al archivo JavaScript para la funcionalidad del carrusel -->
+    <script src="script.js"></script>
+
+</body>
+</html>
