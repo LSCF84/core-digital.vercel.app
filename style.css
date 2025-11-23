@@ -1,30 +1,11 @@
 /* ======================================= */
-/* 1. KEYFRAMES: Animación de Barrido Neón (Cambio de color uniforme) */
+/* KEYFRAMES: Movimiento de Barrido (Izquierda a Derecha) */
 /* ======================================= */
-/* Define la variable que cambiará de color */
-@keyframes neon-sweep {
-    0% { 
-        --animated-color: #00FFFF; /* Cian */
-        --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.5); 
-    }
-    25% { 
-        --animated-color: #00FF00; /* Verde */
-        --animated-shadow-value: 0 0 20px rgba(0, 255, 0, 0.5); 
-    }
-    50% { 
-        --animated-color: #FFFF00; /* Amarillo */
-        --animated-shadow-value: 0 0 20px rgba(255, 255, 0, 0.5); 
-    }
-    75% { 
-        --animated-color: #FF00FF; /* Magenta */
-        --animated-shadow-value: 0 0 20px rgba(255, 0, 255, 0.5); 
-    }
-    100% { 
-        --animated-color: #00FFFF; /* Cian */
-        --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.5); 
-    }
+@keyframes gradient-sweep {
+    /* Mueve el fondo (el gradiente) desde la izquierda hacia la derecha */
+    0% { background-position: 0% 50%; }
+    100% { background-position: 100% 50%; }
 }
-
 
 :root {
     /* Paleta de Colores Futurista/Neón */
@@ -35,10 +16,14 @@
     --card-bg: #1A1A1A; /* Fondo de tarjeta un poco más claro que el fondo */
     --border-color: #333333; /* Borde sutil oscuro */
     
-    /* Variables iniciales para la animación (serán sobrescritas por @keyframes donde se use) */
-    /* Dejamos estas variables por si se necesitan globalmente en otros contextos */
-    --animated-color: var(--primary-color);
-    --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.2); 
+    /* Gradiente para el barrido: Mezcla de los colores Neón principales */
+    --sweep-gradient: linear-gradient(
+        to right,
+        var(--secondary-color), /* Magenta */
+        var(--primary-color), /* Cian */
+        #00FF00, /* Verde */
+        var(--secondary-color) /* Magenta (Para un bucle suave) */
+    );
 }
 
 /* ------------------- Base y Reset ------------------- */
@@ -77,25 +62,44 @@ a {
     background: #000000; 
     color: #ffffff;
     padding: 100px 0;
+    padding-bottom: 120px; /* Espacio para la barra animada */
     text-align: center;
-    
-    /* Revertido a color estático */
-    border-bottom: 2px solid var(--primary-color);
-    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
-    /* Eliminada la animación */
+    position: relative; 
+    overflow: hidden; 
+    border-bottom: none;
+    box-shadow: none;
 }
 
 .hero h1 {
     font-size: 3.5rem;
     font-weight: 900;
-    color: var(--primary-color); /* Revertido a color estático */
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); 
+    color: var(--primary-color); 
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
 }
 
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 30px;
     color: #a0a0a0;
+}
+
+/* BARRA 1: Debajo del Hero (Barrido Sincronizado) */
+.hero::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    z-index: 5;
+    
+    /* APLICACIÓN DEL BARRIDO SINCRONIZADO */
+    background: var(--sweep-gradient);
+    background-size: 300% 100%; 
+    animation: gradient-sweep 4s infinite linear; 
+    
+    /* Efecto de Neón */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
 .btn {
@@ -117,21 +121,18 @@ a {
     box-shadow: 0 0 25px var(--secondary-color);
 }
 
-/* ------------------- Section de Tecnologías (Nueva) ------------------- */
+/* ------------------- Section de Tecnologías (Mantener la estructura, no tiene barra animada) ------------------- */
 .tech-stack {
     padding: 60px 20px;
     background-color: var(--card-bg);
-    
-    /* MODIFICADO: Aquí se aplica la animación de cambio de color a la línea divisoria */
-    border-bottom: 2px solid var(--animated-color); /* Usa color animado */
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), var(--animated-shadow-value); /* Sombra que sigue el color */
-    animation: neon-sweep 10s infinite alternate linear; /* Inicia la animación */
-
     text-align: center;
+    position: relative; 
+    overflow: hidden;
+    /* La barra divisoria está en .projects-carousel::after */
 }
 
 .tech-stack h2 {
-    color: var(--primary-color); /* Revertido a color estático */
+    color: var(--primary-color);
     margin-bottom: 30px;
 }
 
@@ -161,6 +162,8 @@ a {
 .projects-carousel {
     padding: 80px 20px; 
     position: relative; 
+    padding-bottom: 100px; /* Espacio para la barra */
+    overflow: hidden; 
 }
 
 .projects-carousel h2 {
@@ -168,6 +171,25 @@ a {
     margin-bottom: 40px;
     font-size: 2.2rem;
     color: var(--primary-color);
+}
+
+/* BARRA 2: Debajo de Projects Carousel (Barrido Sincronizado) */
+.projects-carousel::after {
+    content: '';
+    position: absolute;
+    bottom: 0; 
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    z-index: 5;
+    
+    /* APLICACIÓN DEL BARRIDO SINCRONIZADO */
+    background: var(--sweep-gradient);
+    background-size: 300% 100%; 
+    animation: gradient-sweep 4s infinite linear; 
+    
+    /* Efecto de Neón */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
 .carousel-wrapper {
@@ -199,10 +221,7 @@ a {
 
 .project-card:hover {
     transform: translateY(-8px);
-    
-    /* Revertido a color estático */
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 12px 25px rgba(0, 0, 0, 0.5);
-    animation: none; /* Eliminada la animación */
 }
 
 .project-card img {
@@ -214,7 +233,7 @@ a {
 }
 
 .project-card:hover img {
-    border-bottom: 1px solid var(--primary-color); /* Revertido a color estático */
+    border-bottom: 1px solid var(--primary-color);
 }
 
 .card-content {
@@ -256,17 +275,14 @@ a {
     color: var(--primary-color);
 }
 
-/* Estilo de Botones del Carrusel */
+/* Estilo de Botones del Carrusel (Estático) */
 .carousel-btn {
     position: absolute;
     top: 55%; 
     transform: translateY(-50%);
-    
-    /* Revertido a color estático */
     background: rgba(0, 255, 255, 0.1); 
-    color: var(--primary-color); 
-    border: 2px solid var(--primary-color); 
-    
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
     padding: 10px 15px;
     cursor: pointer;
     z-index: 10;
@@ -275,10 +291,7 @@ a {
     transition: all 0.3s;
     width: 50px;
     height: 50px;
-    
     box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-    animation: none; /* Eliminada la animación */
-    
     display: flex;
     align-items: center;
     justify-content: center;
@@ -289,7 +302,7 @@ a {
     background: var(--primary-color); 
     color: var(--bg-color); 
     transform: translateY(-50%) scale(1.1);
-    box-shadow: 0 0 25px var(--secondary-color); 
+    box-shadow: 0 0 25px var(--secondary-color);
 }
 
 .prev-btn {
@@ -308,7 +321,6 @@ a {
     color: #777;
     box-shadow: none;
     transform: translateY(-50%);
-    animation: none; /* Deshabilita la animación */
 }
 
 /* Estilo para Tarjeta 'Próximamente' */
@@ -342,11 +354,29 @@ footer {
     background: #000000;
     color: var(--text-color); 
     font-size: 0.85rem;
+    position: relative; 
+    overflow: hidden; 
+    border-top: none;
+    box-shadow: none;
+}
+
+/* BARRA 3: Arriba del Footer (Barrido Sincronizado) */
+footer::before {
+    content: '';
+    position: absolute;
+    top: 0; 
+    left: 0;
+    width: 100%;
+    height: 2px; 
+    z-index: 5;
     
-    /* MODIFICADO: Aquí se aplica la animación de cambio de color a la línea divisoria */
-    border-top: 2px solid var(--animated-color); /* Usa color animado */
-    box-shadow: var(--animated-shadow-value); /* Usa sombra animada */
-    animation: neon-sweep 10s infinite alternate linear; /* Inicia la animación */
+    /* APLICACIÓN DEL BARRIDO SINCRONIZADO */
+    background: var(--sweep-gradient);
+    background-size: 300% 100%; 
+    animation: gradient-sweep 4s infinite linear; 
+    
+    /* Efecto de Neón */
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
 /* ------------------- Responsividad ------------------- */
@@ -369,6 +399,7 @@ footer {
 @media (max-width: 600px) {
     .hero {
         padding: 60px 0;
+        padding-bottom: 80px; 
     }
     .hero h1 {
         font-size: 2.5rem;
@@ -383,6 +414,7 @@ footer {
     }
     .projects-carousel {
         padding: 50px 0;
+        padding-bottom: 70px; 
     }
     .carousel-btn {
         top: 65%; 
