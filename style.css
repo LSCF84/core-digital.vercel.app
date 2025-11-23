@@ -1,11 +1,30 @@
 /* ======================================= */
-/* KEYFRAMES: Movimiento de Barrido (Izquierda a Derecha) */
+/* 1. KEYFRAMES: Animación de Barrido Neón (Cambio de color uniforme) */
 /* ======================================= */
-@keyframes gradient-sweep {
-    /* Mueve el fondo (el gradiente) desde la izquierda hacia la derecha */
-    0% { background-position: 0% 50%; }
-    100% { background-position: 100% 50%; }
+/* Define la variable que cambiará de color */
+@keyframes neon-sweep {
+    0% { 
+        --animated-color: #00FFFF; /* Cian */
+        --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.5); 
+    }
+    25% { 
+        --animated-color: #00FF00; /* Verde */
+        --animated-shadow-value: 0 0 20px rgba(0, 255, 0, 0.5); 
+    }
+    50% { 
+        --animated-color: #FFFF00; /* Amarillo */
+        --animated-shadow-value: 0 0 20px rgba(255, 255, 0, 0.5); 
+    }
+    75% { 
+        --animated-color: #FF00FF; /* Magenta */
+        --animated-shadow-value: 0 0 20px rgba(255, 0, 255, 0.5); 
+    }
+    100% { 
+        --animated-color: #00FFFF; /* Cian */
+        --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.5); 
+    }
 }
+
 
 :root {
     /* Paleta de Colores Futurista/Neón */
@@ -16,14 +35,10 @@
     --card-bg: #1A1A1A; /* Fondo de tarjeta un poco más claro que el fondo */
     --border-color: #333333; /* Borde sutil oscuro */
     
-    /* Gradiente para el barrido: Mezcla de los colores Neón principales */
-    --sweep-gradient: linear-gradient(
-        to right,
-        var(--secondary-color), /* Magenta */
-        var(--primary-color), /* Cian */
-        #00FF00, /* Verde */
-        var(--secondary-color) /* Magenta (Para un bucle suave) */
-    );
+    /* Variables iniciales para la animación (serán sobrescritas por @keyframes donde se use) */
+    /* Dejamos estas variables por si se necesitan globalmente en otros contextos */
+    --animated-color: var(--primary-color);
+    --animated-shadow-value: 0 0 20px rgba(0, 255, 255, 0.2); 
 }
 
 /* ------------------- Base y Reset ------------------- */
@@ -62,44 +77,25 @@ a {
     background: #000000; 
     color: #ffffff;
     padding: 100px 0;
-    padding-bottom: 120px; /* Espacio para la barra animada */
     text-align: center;
-    position: relative; /* Clave para el pseudo-elemento */
-    overflow: hidden; /* Oculta el gradiente sobrante */
-
-    border-bottom: none;
-    box-shadow: none;
+    
+    /* Revertido a color estático */
+    border-bottom: 2px solid var(--primary-color);
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
+    /* Eliminada la animación */
 }
 
 .hero h1 {
     font-size: 3.5rem;
     font-weight: 900;
-    color: var(--primary-color); 
-    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7);
+    color: var(--primary-color); /* Revertido a color estático */
+    text-shadow: 0 0 10px rgba(0, 255, 255, 0.7); 
 }
 
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 30px;
     color: #a0a0a0;
-}
-
-/* Pseudo-elemento para crear la barra animada debajo del hero */
-.hero::after {
-    content: '';
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    width: 100%;
-    height: 2px; /* Grosor de la línea */
-    
-    /* APLICACIÓN DEL BARRIDO */
-    background: var(--sweep-gradient);
-    background-size: 300% 100%; 
-    animation: gradient-sweep 4s infinite linear; 
-    
-    /* Efecto de Neón */
-    box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
 .btn {
@@ -126,35 +122,16 @@ a {
     padding: 60px 20px;
     background-color: var(--card-bg);
     
-    /* Se elimina el borde estático y se ajusta el padding para la línea */
-    padding-bottom: 60px;
-    text-align: center;
-    position: relative; 
-    overflow: hidden;
-    border-bottom: none;
-    box-shadow: none;
-}
+    /* MODIFICADO: Aquí se aplica la animación de cambio de color a la línea divisoria */
+    border-bottom: 2px solid var(--animated-color); /* Usa color animado */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5), var(--animated-shadow-value); /* Sombra que sigue el color */
+    animation: neon-sweep 10s infinite alternate linear; /* Inicia la animación */
 
-/* Pseudo-elemento para crear la línea de barrido animado ABAJO */
-.tech-stack::after {
-    content: '';
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    width: 100%;
-    height: 1px; /* El grosor de la línea */
-    
-    /* APLICACIÓN DEL BARRIDO */
-    background: var(--sweep-gradient);
-    background-size: 300% 100%; 
-    animation: gradient-sweep 4s infinite linear; 
-    
-    /* Efecto de Neón */
-    box-shadow: 0 0 5px rgba(0, 255, 255, 0.4); 
+    text-align: center;
 }
 
 .tech-stack h2 {
-    color: var(--primary-color);
+    color: var(--primary-color); /* Revertido a color estático */
     margin-bottom: 30px;
 }
 
@@ -213,4 +190,204 @@ a {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.05);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     flex-shrink: 0; 
-    width: 350px;
+    width: 350px; 
+    margin-right: 30px; 
+    display: flex;
+    flex-direction: column;
+    color: var(--text-color);
+}
+
+.project-card:hover {
+    transform: translateY(-8px);
+    
+    /* Revertido a color estático */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3), 0 12px 25px rgba(0, 0, 0, 0.5);
+    animation: none; /* Eliminada la animación */
+}
+
+.project-card img {
+    width: 100%;
+    height: auto; 
+    object-fit: contain; 
+    border-bottom: 1px solid var(--border-color);
+    transition: border-color 0.3s;
+}
+
+.project-card:hover img {
+    border-bottom: 1px solid var(--primary-color); /* Revertido a color estático */
+}
+
+.card-content {
+    padding: 20px;
+    flex-grow: 1; 
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content h3 {
+    color: var(--primary-color);
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+    color: #b0b0b0;
+    flex-grow: 1;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+    border-top: 1px solid var(--border-color);
+    color: var(--secondary-color); 
+    font-weight: bold;
+}
+
+.card-footer i {
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .card-footer i {
+    transform: translateX(8px);
+    color: var(--primary-color);
+}
+
+/* Estilo de Botones del Carrusel */
+.carousel-btn {
+    position: absolute;
+    top: 55%; 
+    transform: translateY(-50%);
+    
+    /* Revertido a color estático */
+    background: rgba(0, 255, 255, 0.1); 
+    color: var(--primary-color); 
+    border: 2px solid var(--primary-color); 
+    
+    padding: 10px 15px;
+    cursor: pointer;
+    z-index: 10;
+    border-radius: 50%;
+    opacity: 0.9;
+    transition: all 0.3s;
+    width: 50px;
+    height: 50px;
+    
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+    animation: none; /* Eliminada la animación */
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn:hover {
+    opacity: 1;
+    background: var(--primary-color); 
+    color: var(--bg-color); 
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 0 25px var(--secondary-color); 
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+.carousel-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+    background: rgba(255, 255, 255, 0.05);
+    border-color: #555;
+    color: #777;
+    box-shadow: none;
+    transform: translateY(-50%);
+    animation: none; /* Deshabilita la animación */
+}
+
+/* Estilo para Tarjeta 'Próximamente' */
+.coming-soon {
+    opacity: 0.5;
+    background-color: #000000;
+    pointer-events: none;
+    box-shadow: none;
+}
+.coming-soon .card-content {
+    text-align: center;
+    justify-content: center;
+}
+.coming-soon .card-footer {
+    color: #777;
+    justify-content: center;
+    gap: 10px;
+    border-top: 1px dashed #555;
+}
+.coming-soon .card-content h3 {
+    color: #777;
+}
+.coming-soon .card-footer i {
+    color: #777;
+}
+
+/* ------------------- Footer ------------------- */
+footer {
+    text-align: center;
+    padding: 30px 0;
+    background: #000000;
+    color: var(--text-color); 
+    font-size: 0.85rem;
+    
+    /* MODIFICADO: Aquí se aplica la animación de cambio de color a la línea divisoria */
+    border-top: 2px solid var(--animated-color); /* Usa color animado */
+    box-shadow: var(--animated-shadow-value); /* Usa sombra animada */
+    animation: neon-sweep 10s infinite alternate linear; /* Inicia la animación */
+}
+
+/* ------------------- Responsividad ------------------- */
+@media (max-width: 900px) {
+    .carousel-wrapper {
+        margin: 0 20px; 
+    }
+    .project-card {
+        width: 300px;
+        margin-right: 15px;
+    }
+    .prev-btn {
+        left: 0px;
+    }
+    .next-btn {
+        right: 0px;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero {
+        padding: 60px 0;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .carousel-wrapper {
+        margin: 0; 
+    }
+    .project-card {
+        width: 85vw; 
+        margin-left: 7.5vw;
+        margin-right: 7.5vw;
+    }
+    .projects-carousel {
+        padding: 50px 0;
+    }
+    .carousel-btn {
+        top: 65%; 
+        padding: 8px 10px;
+        width: 40px;
+        height: 40px;
+    }
+}
