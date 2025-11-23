@@ -24,6 +24,9 @@
         #00FF00, /* Verde */
         var(--secondary-color) /* Magenta (Para un bucle suave) */
     );
+
+    /* Color para el efecto de relleno líquido del botón */
+    --liquid-fill-color: #00BFFF; /* Un azul más suave para el relleno */
 }
 
 /* ------------------- Base y Reset ------------------- */
@@ -102,6 +105,7 @@ a {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
+/* Estilos base para el botón */
 .btn {
     display: inline-block;
     background: var(--primary-color);
@@ -121,7 +125,48 @@ a {
     box-shadow: 0 0 25px var(--secondary-color);
 }
 
-/* ------------------- Section de Tecnologías (Con su propia barra animada) ------------------- */
+/* ======================================= */
+/* EFECTO LIQUID FILL PARA BOTONES ESPECÍFICOS */
+/* ======================================= */
+.btn-liquid {
+    position: relative; /* Esencial para posicionar el pseudo-elemento */
+    overflow: hidden; /* Oculta el pseudo-elemento que está fuera del botón */
+    z-index: 1; /* Asegura que el texto esté por encima del líquido */
+    color: var(--text-color); /* Color del texto inicial */
+    background: none; /* Empezamos sin fondo para que el líquido lo genere */
+    border: 2px solid var(--primary-color); /* Borde neón */
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.5); /* Sombra neón inicial */
+    transition: all 0.4s ease-out; /* Transición suave para el color del texto y la sombra */
+}
+
+.btn-liquid::before {
+    content: '';
+    position: absolute;
+    top: 50%; /* Centrado verticalmente */
+    left: 50%; /* Centrado horizontalmente */
+    width: 0%; /* Empieza sin ancho */
+    height: 180%; /* Altura mayor para un efecto de "desbordamiento" */
+    background: var(--liquid-fill-color); /* Color del líquido */
+    border-radius: 50%; /* Forma circular para el efecto */
+    transition: all 0.6s ease-out; /* Transición para el crecimiento del líquido */
+    transform: translate(-50%, -50%) scale(0); /* Empieza pequeño y centrado */
+    z-index: -1; /* Detrás del texto del botón */
+}
+
+.btn-liquid:hover {
+    color: var(--bg-color); /* Cambia el color del texto cuando el líquido lo cubre */
+    transform: scale(1.05);
+    box-shadow: 0 0 25px var(--liquid-fill-color); /* Sombra neón del color de relleno */
+    border-color: var(--liquid-fill-color); /* El borde se llena con el color del líquido */
+}
+
+.btn-liquid:hover::before {
+    transform: translate(-50%, -50%) scale(1); /* El líquido crece y llena el botón */
+    width: 180%; /* Ancho mayor para asegurar que cubra todo */
+}
+
+
+/* ------------------- Section de Tecnologías ------------------- */
 .tech-stack {
     padding: 60px 20px;
     background-color: var(--card-bg);
@@ -129,7 +174,6 @@ a {
     text-align: center;
     position: relative; 
     overflow: hidden;
-    /* Aseguramos que no tenga bordes estáticos que interfieran */
     border-bottom: none; 
     box-shadow: none;
 }
@@ -179,11 +223,10 @@ a {
     box-shadow: 0 0 10px rgba(0, 255, 255, 0.5); 
 }
 
-/* ------------------- Projects Carousel (Sin barra propia ahora) ------------------- */
+/* ------------------- Projects Carousel ------------------- */
 .projects-carousel {
     padding: 80px 20px; 
     position: relative; 
-    /* El padding-bottom se ajusta según el contenido, ya no para una barra */
     overflow: hidden; 
 }
 
@@ -193,8 +236,6 @@ a {
     font-size: 2.2rem;
     color: var(--primary-color);
 }
-
-/* Eliminada la barra .projects-carousel::after ya que ahora va en .tech-stack::after */
 
 .carousel-wrapper {
     overflow: hidden; 
@@ -418,10 +459,9 @@ footer::before {
     }
     .projects-carousel {
         padding: 50px 0;
-        /* Ya no necesita padding-bottom extra para una barra aquí */
     }
     .tech-stack {
-        padding-bottom: 70px; /* Ajuste para la barra en móviles */
+        padding-bottom: 70px; 
     }
     .carousel-btn {
         top: 65%; 
