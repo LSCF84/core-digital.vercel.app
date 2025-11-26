@@ -9,10 +9,10 @@
 
 :root {
     /* Paleta de Colores Futurista/Neón */
-    --primary-color: #00FFFF; /* Cian Neón para acentos */
+    --primary-color: #00FFFF; /* Cian Neón para acentos (Tu color 'azul') */
     --secondary-color: #FF00FF; /* Magenta Neón para hover/destacado */
     --bg-color: #121212; /* Fondo muy oscuro, casi negro */
-    --text-color: #E0E0E0; /* Texto Principal Claro */
+    --text-color: #E0E0E0; /* Texto Principal Claro (Tu color 'gris' inicial) */
     --card-bg: #1A1A1A; /* Fondo de tarjeta un poco más claro que el fondo */
     --border-color: #333333; /* Borde sutil oscuro */
     
@@ -301,24 +301,38 @@ a {
     flex-grow: 1;
 }
 
+/* CORRECCIÓN: Estado Inicial (Gris) y Hover (Cian) */
 .card-footer {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
-    color: var(--secondary-color); 
+    /* Color inicial: El texto principal es gris (var(--text-color)) */
+    color: var(--text-color); /* <-- CÓDIGO CORREGIDO: Inicia en Gris */
     font-weight: bold;
+    transition: color 0.3s ease; /* Transición para el color del texto */
 }
 
+/* El span y el i heredan el color del .card-footer, 
+   pero la flecha necesita una transición de color individual. */
+
 .card-footer i {
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, color 0.3s ease; /* Aseguramos la transición de color en la flecha */
+}
+
+/* CAMBIO: Al hacer hover en la tarjeta, el color del pie cambia a Cian (Azul) */
+.project-card:hover .card-footer {
+    color: var(--primary-color); /* <-- CÓDIGO CORREGIDO: Cambia a Cian (Azul) al hacer hover */
 }
 
 .project-card:hover .card-footer i {
     transform: translateX(8px);
-    color: var(--primary-color);
+    /* Ya no necesita color aquí porque el padre (.card-footer) ya lo establece, 
+       pero lo dejamos para más seguridad/especificidad si fuera necesario: */
+    color: var(--primary-color); 
 }
+
 
 /* Estilo de Botones del Carrusel (Estático) */
 .carousel-btn {
