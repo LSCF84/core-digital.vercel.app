@@ -1,118 +1,127 @@
-import Link from 'next/link';
-import React from 'react';
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Política de Cookies | LSCF Core Digital</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Definición de colores principales para coherencia */
+        :root {
+            --color-primary-light: #818cf8; /* indigo-400 */
+        }
+        /* Configuración de estilos para el tema oscuro forzado */
+        body {
+            /* dark:bg-gray-900 */
+            background-color: #0c101c; /* Un gris oscuro/negro similar al 900 */
+        }
 
-// Clave utilizada para el almacenamiento local del consentimiento
-const CONSENT_KEY = 'cookie_consent_lscf'; 
+        /* Variables CSS que replican los colores usados en el componente React */
+        .primaryColor {
+            color: var(--color-primary-light);
+        }
+        .primaryColor:hover {
+            text-decoration: underline;
+        }
 
-// --- METADATA ---
-export const metadata = {
-  // Ajuste de metadata para LSCF Core Digital
-  title: 'Política de Cookies | LSCF Core Digital',
-  description: 'Política de uso de cookies para el portafolio de LSCF Core Digital.',
-};
+        /* El fondo del contenido: dark:bg-gray-800 */
+        .sectionBg {
+            background-color: #1f2937; /* gray-800 */
+        }
 
-const CookiePolicyPage: React.FC = () => {
-  // Definición de colores principales y estilos usando Tailwind CSS
-  // AJUSTE DE ESTILOS PARA TEMA OSCURO - COINCIDIENDO CON LA ESTÉTICA AZUL OSCURO DE LA POLÍTICA
-  const primaryColor = 'text-indigo-400 dark:text-indigo-400'; // Enlaces en índigo claro
-  // El fondo general del layout es el que da el negro/gris oscuro (dark:bg-gray-900).
-  const containerBg = 'bg-gray-100 dark:bg-gray-900'; 
-  
-  // Fondo del contenido de la política: El color oscuro de la tarjeta/sección en tu imagen.
-  const sectionBg = 'bg-white dark:bg-gray-800'; 
-  
-  // Texto y títulos: Blancos o muy claros para alto contraste
-  const textColor = 'text-gray-700 dark:text-gray-300'; // Texto de cuerpo en gris claro
-  const titleColor = 'text-gray-900 dark:text-white'; // Títulos en blanco
-  const lastUpdated = "28 de noviembre de 2025"; 
+        /* Títulos: dark:text-white */
+        .titleColor {
+            color: #ffffff;
+        }
 
-  return (
-    // Usa un contenedor flexbox para asegurar que el contenido se centre vertical y horizontalmente
-    // Ajustamos el fondo del div principal para forzar el color de la web si no viene del layout
-    <div className={`min-h-screen flex flex-col items-center py-16 px-4 sm:px-6 lg:px-8 ${containerBg}`}>
-      <div 
-        // El max-w-4xl centrará la tarjeta principal
-        className={`max-w-4xl w-full p-8 sm:p-10 rounded-xl shadow-2xl transition-colors duration-300 ${sectionBg}`}
-      >
-        
-        <Link href="/" className={`inline-flex items-center ${primaryColor} mb-6 hover:underline`}>
-            {/* Icono de flecha SVG simple */}
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-            </svg>
-            Volver al Inicio
-        </Link>
-        
-        <h1 className={`text-4xl font-extrabold mb-4 ${titleColor}`}>Política de Cookies de LSCF Core Digital</h1>
-        <p className={`text-sm ${textColor} mb-8`}>
-          Última actualización: {lastUpdated}
-        </p>
+        /* Texto de cuerpo: dark:text-gray-300 */
+        .textColor {
+            color: #d1d5db;
+        }
 
-        {/* --- 1. INTRODUCCIÓN --- */}
-        <section className="mb-8">
-          <h2 className={`text-2xl font-bold mb-3 ${titleColor}`}>1. Introducción y Definición</h2>
-          <p className={`mb-4 ${textColor}`}>
-            Esta Política de Cookies explica qué son las cookies y cómo las utilizamos en el sitio web de **LSCF Core Digital**. Las cookies son pequeños archivos de texto que se almacenan en su navegador cuando visita nuestro sitio web. Tienen la función de recordar información sobre su visita para mejorar su experiencia futura, medir el rendimiento y personalizar el contenido.
-          </p>
-          <p className={textColor}>
-            Al utilizar este sitio web, usted acepta el uso de cookies de acuerdo con esta política. Si no está de acuerdo con el uso de cookies de Rendimiento, le rogamos que las gestione a través de la opción de configuración.
-          </p>
-        </section>
+        /* Este div envuelve todo y fuerza el fondo dark:bg-gray-900 */
+        .containerBg {
+             background-color: #0c101c;
+        }
+    </style>
+</head>
 
-        {/* --- 2. TIPOS DE COOKIES UTILIZADAS --- */}
-        <section className="mb-8">
-          <h2 className={`text-2xl font-bold mb-3 ${titleColor}`}>2. ¿Qué tipos de cookies utilizamos?</h2>
-          
-          <h3 className={`text-xl font-semibold mt-4 mb-2 ${titleColor}`}>2.1. Cookies Estrictamente Necesarias (Técnicas)</h3>
-          <p className={`mb-2 ${textColor}`}>
-            Estas cookies son esenciales para el funcionamiento básico del sitio y no se pueden desactivar en nuestros sistemas. Son cruciales para aspectos como recordar su preferencia de consentimiento de cookies o asegurar la correcta visualización del contenido.
-          </p>
-          <ul className={`list-disc list-inside ml-5 ${textColor}`}>
-            <li>**Finalidad:** Garantizar la seguridad, la funcionalidad básica y recordar la preferencia de consentimiento de cookies.</li>
-            <li>**Nombre:** {CONSENT_KEY}</li>
-            <li>**Duración:** Generalmente persisten durante 12 meses.</li>
-          </ul>
+<body class="containerBg">
 
-          <h3 className={`text-xl font-semibold mt-4 mb-2 ${titleColor}`}>2.2. Cookies de Rendimiento y Análisis (De terceros)</h3>
-          <p className={`mb-2 ${textColor}`}>
-            Estas cookies, administradas por terceros (como Google Analytics), nos permiten contar visitas y fuentes de tráfico para que podamos medir y mejorar el rendimiento de nuestro sitio. Nos ayudan a saber qué páginas son las más y menos populares y ver cómo se mueven los visitantes por el sitio. **Su uso requiere su consentimiento explícito.**
-          </p>
-          <ul className={`list-disc list-inside ml-5 ${textColor}`}>
-            <li>**Finalidad:** Medir el tráfico web, optimizar la experiencia del usuario y evaluar el rendimiento del portafolio.</li>
-            <li>**Aceptación:** Solo se instalan si el usuario las acepta explícitamente a través del banner de consentimiento.</li>
-            <li>**Ejemplo:** Cookies de Google Analytics (_ga, _gid).</li>
-          </ul>
-        </section>
+    <div class="min-h-screen flex flex-col items-center py-16 px-4 sm:px-6 lg:px-8 containerBg">
 
-        {/* --- 3. GESTIÓN DE COOKIES --- */}
-        <section className="mb-8">
-          <h2 className={`text-2xl font-bold mb-3 ${titleColor}`}>3. Gestión y Desactivación de Cookies</h2>
-          <p className={`mb-4 ${textColor}`}>
-            Usted tiene la opción de permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones de su navegador.
-          </p>
-          <p className={textColor}>
-            {/* CORRECCIÓN: Reemplazamos la comilla doble " por la entidad HTML &quot; */}
-            Puede configurar sus preferencias específicas utilizando el botón **&quot;Configurar&quot;** en el banner de consentimiento que aparece al acceder a nuestra web. Si desea eliminar cookies existentes, puede hacerlo directamente a través de las opciones de su navegador:
-          </p>
-          <ul className={`list-disc list-inside ml-5 mt-4 ${textColor}`}>
-            <li>**Chrome:** <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" className={primaryColor}>Guía de Google Chrome</a></li>
-            <li>**Firefox:** <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we" target="_blank" rel="noopener noreferrer" className={primaryColor}>Guía de Mozilla Firefox</a></li>
-            <li>**Safari:** <a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" className={primaryColor}>Guía de Apple Safari</a></li>
-            <li>**Edge:** <a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" className={primaryColor}>Guía de Microsoft Edge</a></li>
-          </ul>
-        </section>
+        <div class="max-w-4xl w-full p-8 sm:p-10 rounded-xl shadow-2xl sectionBg">
 
-        {/* --- 4. CONTACTO --- */}
-        <section>
-          <h2 className={`text-2xl font-bold mb-3 ${titleColor}`}>4. Contacto</h2>
-          <p className={textColor}>
-            Si tiene alguna pregunta sobre esta Política de Cookies, puede contactarnos a través del correo electrónico: <a href="mailto:contacto@lscf-coredigital.com" className={primaryColor}>contacto@lscf-coredigital.com</a> (Reemplace esto con su correo real).
-          </p>
-        </section>
+            <a href="index.html" class="inline-flex items-center primaryColor mb-6 hover:underline">
+                <i class="fas fa-arrow-left h-5 w-5 mr-2"></i>
+                Volver al Inicio
+            </a>
+            
+            <h1 class="text-4xl font-extrabold mb-4 titleColor">Política de Cookies de LSCF Core Digital</h1>
+            <p class="text-sm textColor mb-8">
+                Última actualización: 28 de noviembre de 2025
+            </p>
 
-      </div>
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-3 titleColor">1. Introducción y Definición</h2>
+                <p class="mb-4 textColor">
+                    Esta Política de Cookies explica qué son las cookies y cómo las utilizamos en el sitio web de **LSCF Core Digital**. Las cookies son pequeños archivos de texto que se almacenan en su navegador cuando visita nuestro sitio web. Tienen la función de recordar información sobre su visita para mejorar su experiencia futura, medir el rendimiento y personalizar el contenido.
+                </p>
+                <p class="textColor">
+                    Al utilizar este sitio web, usted acepta el uso de cookies de acuerdo con esta política. Si no está de acuerdo con el uso de cookies de Rendimiento, le rogamos que las gestione a través de la opción de configuración.
+                </p>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-3 titleColor">2. ¿Qué tipos de cookies utilizamos?</h2>
+                
+                <h3 class="text-xl font-semibold mt-4 mb-2 titleColor">2.1. Cookies Estrictamente Necesarias (Técnicas)</h3>
+                <p class="mb-2 textColor">
+                    Estas cookies son esenciales para el funcionamiento básico del sitio y no se pueden desactivar en nuestros sistemas. Son cruciales para aspectos como recordar su preferencia de consentimiento de cookies o asegurar la correcta visualización del contenido.
+                </p>
+                <ul class="list-disc list-inside ml-5 textColor">
+                    <li>**Finalidad:** Garantizar la seguridad, la funcionalidad básica y recordar la preferencia de consentimiento de cookies.</li>
+                    <li>**Nombre:** cookie\_consent\_lscf</li>
+                    <li>**Duración:** Generalmente persisten durante 12 meses.</li>
+                </ul>
+
+                <h3 class="text-xl font-semibold mt-4 mb-2 titleColor">2.2. Cookies de Rendimiento y Análisis (De terceros)</h3>
+                <p class="mb-2 textColor">
+                    Estas cookies, administradas por terceros (como Google Analytics), nos permiten contar visitas y fuentes de tráfico para que podamos medir y mejorar el rendimiento de nuestro sitio. Nos ayudan a saber qué páginas son las más y menos populares y ver cómo se mueven los visitantes por el sitio. **Su uso requiere su consentimiento explícito.**
+                </p>
+                <ul class="list-disc list-inside ml-5 textColor">
+                    <li>**Finalidad:** Medir el tráfico web, optimizar la experiencia del usuario y evaluar el rendimiento del portafolio.</li>
+                    <li>**Aceptación:** Solo se instalan si el usuario las acepta explícitamente a través del banner de consentimiento.</li>
+                    <li>**Ejemplo:** Cookies de Google Analytics (\_ga, \_gid).</li>
+                </ul>
+            </section>
+
+            <section class="mb-8">
+                <h2 class="text-2xl font-bold mb-3 titleColor">3. Gestión y Desactivación de Cookies</h2>
+                <p class="mb-4 textColor">
+                    Usted tiene la opción de permitir, bloquear o eliminar las cookies instaladas en su equipo mediante la configuración de las opciones de su navegador.
+                </p>
+                <p class="textColor">
+                    Puede configurar sus preferencias específicas utilizando el botón **"Configurar"** en el banner de consentimiento que aparece al acceder a nuestra web. Si desea eliminar cookies existentes, puede hacerlo directamente a través de las opciones de su navegador:
+                </p>
+                <ul class="list-disc list-inside ml-5 mt-4 textColor">
+                    <li>**Chrome:** <a href="https://support.google.com/chrome/answer/95647" target="_blank" rel="noopener noreferrer" class="primaryColor">Guía de Google Chrome</a></li>
+                    <li>**Firefox:** <a href="https://support.mozilla.org/es/kb/habilitar-y-deshabilitar-cookies-que-los-sitios-we" target="_blank" rel="noopener noreferrer" class="primaryColor">Guía de Mozilla Firefox</a></li>
+                    <li>**Safari:** <a href="https://support.apple.com/es-es/guide/safari/sfri11471/mac" target="_blank" rel="noopener noreferrer" class="primaryColor">Guía de Apple Safari</a></li>
+                    <li>**Edge:** <a href="https://support.microsoft.com/es-es/windows/eliminar-y-administrar-cookies-168dab11-0753-043d-7c16-ede5947fc64d" target="_blank" rel="noopener noreferrer" class="primaryColor">Guía de Microsoft Edge</a></li>
+                </ul>
+            </section>
+
+            <section>
+                <h2 class="text-2xl font-bold mb-3 titleColor">4. Contacto</h2>
+                <p class="textColor">
+                    Si tiene alguna pregunta sobre esta Política de Cookies, puede contactarnos a través del correo electrónico: <a href="mailto:l.sergio.camacho.fernandez@gmail.com" class="primaryColor">l.sergio.camacho.fernandez@gmail.com</a>.
+                </p>
+            </section>
+
+        </div>
     </div>
-  );
-};
 
-export default CookiePolicyPage;
+</body>
+</html>
